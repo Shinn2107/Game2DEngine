@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.devfriendly" />
+
+    <bean id="gameLoop" class="com.devfriendly.game.impl.DefaultGameLoop" scope="singleton">
+
+    </bean>
+
+    <bean id="applicationConfig" class="com.devfriendly.application.ApplicationConfig" scope="singleton">
+        <constructor-arg name="gameTitle" value="My Easy Game !"/>
+        <constructor-arg name="width" value="800"/>
+        <constructor-arg name="scale" value="1"/>
+        <constructor-arg name="resizeable" value="false"/>
+    </bean>
+    <bean id="gameFrameService" class="com.devfriendly.game.impl.GameFrameServiceImpl" scope="singleton"/>
+
+    <bean id="gameWindow" class="com.devfriendly.game.impl.EasyGameWindow" scope="singleton"/>
+
+</beans>
