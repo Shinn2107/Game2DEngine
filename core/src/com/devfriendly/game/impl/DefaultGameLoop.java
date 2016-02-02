@@ -2,8 +2,11 @@ package com.devfriendly.game.impl;
 
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.devfriendly.game.GameLoop;
+import com.devfriendly.system.rendering.GameRenderer;
+import com.devfriendly.system.GameUpdateHandler;
 
 /**
  * Created by Patrick Fey on 15.01.2016.
@@ -13,6 +16,12 @@ public class DefaultGameLoop implements GameLoop {
 
     private Thread gameThread;
     private boolean running;
+
+    @Autowired
+    GameUpdateHandler gameUpdateHandler;
+
+    @Autowired
+    GameRenderer gameRenderer;
 
     @Override
     public synchronized void run() {
@@ -27,11 +36,11 @@ public class DefaultGameLoop implements GameLoop {
             delta += (now - lastTime) / ns;
             lastTime = now;
             while (delta >= 1){
-                /*update();*/
+                gameUpdateHandler.update();
                 updates++;
                 delta--;
             }
-            /*render();*/
+            gameRenderer.render();
             frames++;
 
             if(System.currentTimeMillis() - timer > 1000){

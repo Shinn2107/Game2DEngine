@@ -18,6 +18,22 @@
     </bean>
     <bean id="gameFrameService" class="com.devfriendly.game.impl.GameFrameServiceImpl" scope="singleton"/>
 
-    <bean id="gameWindow" class="com.devfriendly.game.impl.EasyGameWindow" scope="singleton"/>
+    <bean id="gameWindow" class="com.devfriendly.game.impl.EasyGameWindow" scope="singleton">
+
+    </bean>
+
+    <bean id="gameScreen" class="com.devfriendly.game.impl.GameScreen">
+        <constructor-arg name="applicationConfig" ref="applicationConfig"/>
+    </bean>
+
+    <bean id="gameUpdateHandler" class="com.devfriendly.system.impl.GameUpdateHandlerImpl" scope="singleton"/>
+
+    <!-- GameStateManager -->
+    <bean id="gameStateManager" class="com.devfriendly.system.GameStateManager"
+
+
+
+    <!-- Rendering Stuff -->
+    <bean id="gameRendererHandler" class="com.devfriendly.system.rendering.impl.GameRendererImpl" scope="singleton"/>
 
 </beans>

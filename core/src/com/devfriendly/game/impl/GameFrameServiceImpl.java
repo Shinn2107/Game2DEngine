@@ -1,8 +1,11 @@
 package com.devfriendly.game.impl;
 
+import javax.annotation.Resource;
 import javax.swing.*;
 
 import java.awt.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.devfriendly.application.ApplicationConfig;
 import com.devfriendly.game.GameFrameService;
@@ -13,9 +16,13 @@ import com.devfriendly.game.GameWindow;
  */
 public class GameFrameServiceImpl implements GameFrameService {
 
+    @Resource(name = "applicationConfig")
+    private ApplicationConfig applicationConfig;
+
+
     @Override
-    public JFrame buildGameFrame(GameWindow easyGameWindow, ApplicationConfig applicationConfig) {
-        final JFrame gameFrame = new JFrame();
+    public GameScreen buildGameFrame(GameWindow easyGameWindow) {
+        final GameScreen gameFrame = new GameScreen(applicationConfig);
         final Dimension dimension = new Dimension(applicationConfig.getWidth()*applicationConfig.getScale()
                         ,applicationConfig.getHeight()*applicationConfig.getScale());
         gameFrame.setPreferredSize(dimension);

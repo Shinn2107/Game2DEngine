@@ -16,8 +16,6 @@ public abstract class GameWindow extends Canvas {
     private ApplicationConfig applicationConfig;
     @Resource(name = "gameLoop")
     private GameLoop gameLoop;
-    @Resource(name = "gameFrameService")
-    private GameFrameService gameFrameService;
 
 
     public ApplicationConfig getApplicationConfig() {
@@ -28,11 +26,7 @@ public abstract class GameWindow extends Canvas {
         return gameLoop;
     }
 
-    public GameFrameService getGameFrameService() {
-        return gameFrameService;
-    }
-
-    public abstract void startGame() throws GameAlreadyStartedException, GameAlreadyStartedException;
+    public abstract void startGame() throws GameAlreadyStartedException;
 
 
 }
