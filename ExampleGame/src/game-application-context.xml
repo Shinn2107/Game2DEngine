@@ -6,5 +6,23 @@
 
     <bean id="game" class="com.devfriendly.game.Game"/>
 
-    
+    <bean id="gameStateManager" class="com.devfriendly.system.impl.GameStateManagerImpl">
+        <constructor-arg>
+            <map>
+                <entry key="WELCOME_SCREEN" value-ref="simpleHomeScreen"/>
+            </map>
+        </constructor-arg>
+        <property name="gameState" value="WELCOME_SCREEN"/>
+    </bean>
+
+    <bean id="simpleHomeScreen" class="com.devfriendly.game.states.homescreen.SimpleHomeScreenState">
+        <constructor-arg name="gameStateName" value="WELCOME_SCREEN"/>
+        <constructor-arg name="renderableList" >
+            <list>
+                <ref bean="simpleHomeScreenRenderer"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="simpleHomeScreenRenderer" class="com.devfriendly.game.states.homescreen.renderer.SimpleHomeScreenRenderer"/>
 </beans>

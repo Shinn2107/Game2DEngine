@@ -1,5 +1,6 @@
 package com.devfriendly.system;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import com.devfriendly.system.rendering.Renderable;
@@ -11,6 +12,7 @@ public abstract class AbstractGameState implements GameState {
 
     private List<Renderable> renderables;
     private String gameStateName;
+
 
     protected void setRenderables(List<Renderable> renderables){
         this.renderables = renderables;

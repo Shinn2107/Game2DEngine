@@ -10,7 +10,7 @@ import com.devfriendly.system.rendering.Renderable;
 /**
  * Created by Patrick Fey on 17.01.2016.
  */
-public class GameScreen extends JFrame implements Renderable {
+public class GameScreen extends JFrame{
 
     private ApplicationConfig applicationConfig;
 
@@ -31,17 +31,5 @@ public class GameScreen extends JFrame implements Renderable {
         this.setVisible(false);
         this.bufferedImage = new BufferedImage(applicationConfig.getWidth(),applicationConfig.getHeight(),BufferedImage.TYPE_INT_RGB);
         pixels = new int[applicationConfig.getWidth() * applicationConfig.getHeight()];
-    }
-
-    @Override
-    public void render(Graphics g) {
-        g.drawImage(bufferedImage,0,0,getWidth(),getHeight(),null);
-    }
-
-    @Override
-    public void clear() {
-        for (int i=0; i < pixels.length; i++) {
-            pixels[i] = 0;
-        }
     }
 }

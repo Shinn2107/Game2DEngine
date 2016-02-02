@@ -2,12 +2,12 @@
   <library name="Spring MVC-4.2.4.RELEASE" type="spring-mvc">
     <properties version="4.2.4.RELEASE" />
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/Core/lib/spring-webmvc-portlet-4.2.4.RELEASE.jar!/" />
-      <root url="jar://$PROJECT_DIR$/Core/lib/spring-websocket-4.2.4.RELEASE.jar!/" />
-      <root url="jar://$PROJECT_DIR$/Core/lib/spring-web-4.2.4.RELEASE.jar!/" />
-      <root url="jar://$PROJECT_DIR$/Core/lib/spring-webmvc-4.2.4.RELEASE.jar!/" />
-      <root url="jar://$PROJECT_DIR$/Core/lib/commons-logging-1.1.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/Core/lib/log4j-1.2.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/core/lib/spring-webmvc-portlet-4.2.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/core/lib/spring-websocket-4.2.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/core/lib/spring-web-4.2.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/core/lib/spring-webmvc-4.2.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/core/lib/commons-logging-1.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/core/lib/log4j-1.2.17.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

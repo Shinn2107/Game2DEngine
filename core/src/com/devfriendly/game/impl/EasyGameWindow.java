@@ -31,27 +31,4 @@ public class EasyGameWindow extends GameWindow {
         this.gameFrame = gameFrame;
     }
 
-   /* @Override
-    public void render() {
-        BufferStrategy bs = this.getBufferStrategy();
-        if(bs == null){
-            this.createBufferStrategy(3);
-            return;
-        }
-        setForeground(Color.WHITE);
-        setBackground(Color.PINK);
-        setFont(new Font("Arial", Font.PLAIN, 24));
-        Graphics g = bs.getDrawGraphics();
-        g.drawString("Test Render",100,100);
-        *//*g.drawImage(image,0,0,getWidth(),getHeight(),null);*//*
-        g.dispose();
-        bs.show();
-    }
-
-    @Override
-    public void clear() {
-        *//*for (int i=0; i < pixels.length; i++) {
-            pixels[i] = 0;
-        }*//*
-    }*/
 }

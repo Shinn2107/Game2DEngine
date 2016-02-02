@@ -1,4 +1,4 @@
-package com.devfriendly.states.homescreen;
+package com.devfriendly.game.states.homescreen;
 
 import com.devfriendly.system.AbstractGameState;
 import java.util.List;
@@ -7,10 +7,10 @@ import com.devfriendly.system.rendering.Renderable;
 /**
  * Created by Patrick Fey on 02.02.2016.
  */
-public class SimpleHomeScreen extends AbstractGameState {
+public class SimpleHomeScreenState extends AbstractGameState {
 
 
-    public SimpleHomeScreen(String gameStateName, List<Renderable> renderableList) {
+    public SimpleHomeScreenState(String gameStateName, List<Renderable> renderableList) {
         setGameStateName(gameStateName);
         setRenderables(renderableList);
     }

@@ -2,7 +2,9 @@ package com.devfriendly.system.rendering.impl;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
+import com.devfriendly.system.exception.GameStateNotSetException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.devfriendly.game.GameWindow;
@@ -18,8 +20,8 @@ public class GameRendererImpl implements GameRenderer {
 
     @Autowired
     GameStateManager gameStateManager;
-    
-/*    private List<Renderable> rendererItems;*/
+
+    BufferedImage bufferedImage;
 
     @Override
     public void render() {
@@ -30,26 +32,26 @@ public class GameRendererImpl implements GameRenderer {
         }
         final Graphics g = bs.getDrawGraphics();
 
-        gameStateManager.getCurrentGameState().getRenderables()
-                .forEach(item -> item.render(g));
-
-        /*for (Renderable rendererItem : rendererItems) {
-            rendererItem.render(g);
-        }*/
-        /*for (Renderable rendererItem : rendererItems) {
-            rendererItem.clear();
-        }*/
+        g.drawImage(getBufferedImage(), 0, 0, gameWindow.getWidth(), gameWindow.getHeight(), null);
+        try {
+            gameStateManager.getCurrentGameState().getRenderables()
+                    .forEach(item -> item.render(g));
+            gameStateManager.getCurrentGameState().getRenderables()
+                    .forEach(item -> item.clear());
+        } catch (GameStateNotSetException e) {
+            e.printStackTrace();
+        }
 
         g.dispose();
         bs.show();
 
     }
 
-    /*public void setRendererItems(java.util.List rendererItems) {
-        this.rendererItems = rendererItems;
+    private BufferedImage getBufferedImage() {
+        if(bufferedImage==null){
+            bufferedImage = new BufferedImage(gameWindow.getWidth(),gameWindow.getHeight(),BufferedImage.TYPE_INT_RGB);
+        }
+        return bufferedImage;
     }
 
-    public java.util.List getRendererItems() {
-        return rendererItems;
-    }*/
 }
