@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.devfriendly.game.GameLoop;
 import com.devfriendly.system.rendering.GameRenderer;
-import com.devfriendly.system.GameUpdateHandler;
+import com.devfriendly.system.updating.GameUpdateHandler;
 
 /**
  * Created by Patrick Fey on 15.01.2016.

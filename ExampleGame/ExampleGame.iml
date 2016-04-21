@@ -2,7 +2,13 @@
 <module type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <dependency>fileset==core</dependency>
+          <file>file://$MODULE_DIR$/src/com/devfriendly/context/teststage/game-teststage-context.xml</file>
+          <file>file://$MODULE_DIR$/src/com/devfriendly/context/teststage/game-teststage-context.xml</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
@@ -16,5 +22,15 @@
     <orderEntry type="library" name="Spring-4.2.4.RELEASE" level="project" />
     <orderEntry type="module" module-name="Core" />
     <orderEntry type="module" module-name="core" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

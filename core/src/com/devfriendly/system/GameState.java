@@ -1,6 +1,5 @@
 package com.devfriendly.system;
 
-import com.devfriendly.system.rendering.Renderable;
 import java.util.List;
 
 /**
@@ -8,7 +7,7 @@ import java.util.List;
  */
 public interface GameState {
 
-    List<Renderable> getRenderables();
+    List<Interactable> getInteractables();
 
     String getGameStateName();
 

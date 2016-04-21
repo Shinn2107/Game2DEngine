@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import com.devfriendly.application.ApplicationConfig;
-import com.devfriendly.system.rendering.Renderable;
 
 /**
  * Created by Patrick Fey on 17.01.2016.

@@ -25,6 +25,10 @@
         <constructor-arg name="applicationConfig" ref="applicationConfig"/>
     </bean>
 
-    <bean id="gameUpdateHandler" class="com.devfriendly.system.impl.GameUpdateHandlerImpl" scope="singleton"/>
+    <bean id="gameUpdateHandler" class="com.devfriendly.system.updating.impl.GameUpdateHandlerImpl" scope="singleton"/>
+
+    <bean id="keyboard" class="com.devfriendly.input.impl.KeyboardImpl" scope="singleton"/>
+
+
 
 </beans>

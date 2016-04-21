@@ -14,5 +14,8 @@
         <property name="gameState" value="WELCOME_SCREEN"/>
     </bean>
 
+    <bean id="abstractGameState" abstract="true" class="com.devfriendly.system.gamestates.AbstractGameState"/>
+
+
 
 </beans>

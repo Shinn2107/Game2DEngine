@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="abstractButton" abstract="true" class="com.devfriendly.input.button.AbstractButton" >
+        <property name="selected" value="false"/>
+        <property name="r" value="0"/>
+        <property name="g" value="0"/>
+        <property name="b" value="0"/>
+        <property name="font" value="Verdana"/>
+        <property name="fontSize" value="12"/>
+        <property name="fontWeight" value="0"/>
+    </bean>
+
+    <bean id="startButton" parent="abstractButton">
+        <property name="text" value="Start Game"/>
+        <property name="fontSize" value="32"/>
+        <property name="fontWeight" value="1"/>
+        <property name="selected" value="true"/>
+        <property name="action" ref="startButtonAction"/>
+    </bean>
+
+    <bean id="exitButton" parent="abstractButton">
+        <property name="text" value="Exit"/>
+        <property name="fontSize" value="32"/>
+        <property name="fontWeight" value="1"/>
+        <property name="action" ref="exitApplicationAction"/>
+    </bean>
+
+    <bean id="startButtonAction" class="com.devfriendly.game.states.homescreen.button.StartButtonAction">
+       <!-- <property name="gameStateManager" ref="gameStateManager"/> -->
+    </bean>
+
+</beans>

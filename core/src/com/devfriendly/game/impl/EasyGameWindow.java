@@ -18,7 +18,8 @@ public class EasyGameWindow extends GameWindow {
         gameFrame.add(this);
         gameFrame.pack();
         gameFrame.setVisible(true);
-
+        this.addKeyListener(getKeyboard().getListener());
+        this.requestFocus();
         getGameLoop().start();
     }
 

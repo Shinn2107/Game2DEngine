@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="abstractGameState" abstract="true" class="com.devfriendly.system.gamestates.AbstractGameState"/>
+
+
+    <bean id="testScreenState" parent="abstractGameState">
+        <constructor-arg name="gameStateName" value="TEST_SCREEN"/>
+        <constructor-arg name="interactables" >
+            <list>
+                <ref bean="testSpriteRenderer"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="testSpriteRenderer" class="com.devfriendly.game.states.testage.renderer.TestSpriteRenderer"/>
+
+
+
+
+
+</beans>

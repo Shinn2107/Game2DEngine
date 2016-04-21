@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="game-homescreen-buttons.xml"/>
+    <bean id="abstractGameState" abstract="true" class="com.devfriendly.system.gamestates.AbstractGameState"/>
+
+    <bean id="simpleHomeScreen" parent="abstractGameState">
+        <constructor-arg name="gameStateName" value="WELCOME_SCREEN"/>
+        <constructor-arg name="interactables" >
+            <list>
+                <ref bean="simpleHomeScreenRenderer"/>
+                <ref bean="simpleHomeScreenButtonRenderer"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="simpleHomeScreenRenderer" class="com.devfriendly.game.states.homescreen.renderer.SimpleHomeScreenRenderer"/>
+
+    <bean id="simpleHomeScreenButtonRenderer" class="com.devfriendly.game.states.homescreen.renderer.SimpleHomeScreenButtonRenderer">
+        <property name="buttons">
+            <list>
+                <ref bean="startButton"/>
+                <ref bean="exitButton"/>
+            </list>
+        </property>
+    </bean>
+
+
+
+</beans>

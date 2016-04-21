@@ -34,9 +34,9 @@ public class GameRendererImpl implements GameRenderer {
 
         g.drawImage(getBufferedImage(), 0, 0, gameWindow.getWidth(), gameWindow.getHeight(), null);
         try {
-            gameStateManager.getCurrentGameState().getRenderables()
+            gameStateManager.getCurrentGameState().getInteractables()
                     .forEach(item -> item.render(g));
-            gameStateManager.getCurrentGameState().getRenderables()
+            gameStateManager.getCurrentGameState().getInteractables()
                     .forEach(item -> item.clear());
         } catch (GameStateNotSetException e) {
             e.printStackTrace();
