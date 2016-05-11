@@ -15,7 +15,9 @@
         </constructor-arg>
     </bean>
 
-    <bean id="testSpriteRenderer" class="com.devfriendly.game.states.testage.renderer.TestSpriteRenderer"/>
+    <bean id="testSpriteRenderer" class="com.devfriendly.system.rendering.renderables.impl.TiledJsonMapStageRenderer">
+        <constructor-arg value="/maps/teststage.json" name="mapUrl"/>
+    </bean>
 
 
 

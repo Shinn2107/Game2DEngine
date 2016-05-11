@@ -1,12 +1,16 @@
 package com.devfriendly.game.impl;
 
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.devfriendly.game.GameLoop;
 import com.devfriendly.system.rendering.GameRenderer;
 import com.devfriendly.system.updating.GameUpdateHandler;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by Patrick Fey on 15.01.2016.
@@ -14,60 +18,76 @@ import com.devfriendly.system.updating.GameUpdateHandler;
 public class DefaultGameLoop implements GameLoop {
     private static final Logger LOG = Logger.getLogger(DefaultGameLoop.class);
 
-    private Thread gameThread;
-    private boolean running;
-
     @Autowired
     GameUpdateHandler gameUpdateHandler;
 
     @Autowired
     GameRenderer gameRenderer;
 
+    private ParallelTransition parallelTransition;
+
+    private final long[] frameTimes = new long[100];
+    private int frameTimeIndex = 0 ;
+    private boolean arrayFilled = false ;
+
+
+
     @Override
-    public synchronized void run() {
-        long lastTime = System.nanoTime();
-        final double ns = 1000000000.0 / 60.0;
-        double delta = 0;
-        int frames = 0;
-        int updates = 0;
-        long timer = System.currentTimeMillis();
-        while (running) {
-            long now = System.nanoTime();
-            delta += (now - lastTime) / ns;
-            lastTime = now;
-            while (delta >= 1){
-                gameUpdateHandler.update();
-                updates++;
-                delta--;
-            }
+    public void start() {
+        Timeline renderingTimeLine = createRenderingTimeLine();
+        Timeline updatingTimeLine = createUpdatingTimeLine();
+        parallelTransition = new ParallelTransition(renderingTimeLine,updatingTimeLine);
+        parallelTransition.play();
+    }
+
+    private Timeline createUpdatingTimeLine() {
+        Timeline timeline = createTimeLine();
+        final Duration oneUpdateAmt = Duration.millis(1000 / 60);
+        timeline.getKeyFrames().add(new KeyFrame(oneUpdateAmt, event -> gameUpdateHandler.update()));
+        return timeline;
+    }
+
+    private Timeline createRenderingTimeLine() {
+        Timeline timeline = createTimeLine();
+        final Duration oneFrameAmt = Duration.millis(1000 / 100);
+        timeline.getKeyFrames().add(new KeyFrame(oneFrameAmt, event -> {
+            calculateFrames();
             gameRenderer.render();
-            frames++;
 
-            if(System.currentTimeMillis() - timer > 1000){
-                timer += 1000;
-                if(LOG.isDebugEnabled()){
-                    LOG.debug("[ "+updates + " ups, "+ frames +" fps ]");
-                }
-                frames = 0;
-                updates = 0;
-            }
+        }));
+        return timeline;
+    }
+
+    private void calculateFrames() {
+        long now = System.nanoTime();
+        long oldFrameTime = frameTimes[frameTimeIndex] ;
+        frameTimes[frameTimeIndex] = now;
+        frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length ;
+        if (frameTimeIndex == 0) {
+            arrayFilled = true ;
+        }
+        if (arrayFilled) {
+            long elapsedNanos = now - oldFrameTime ;
+            long elapsedNanosPerFrame = elapsedNanos / frameTimes.length ;
+            double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame ;
+            LOG.info(String.format("Current frame rate: %.3f", frameRate));
         }
     }
 
-    @Override
-    public synchronized void start() {
-        running = true;
-        gameThread = new Thread(this, "Game Thread");
-        gameThread.start();
+    private Timeline createTimeLine() {
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(Animation.INDEFINITE);
+        return timeline;
     }
 
+
     @Override
-    public synchronized void stop() {
-        running = false;
-        try {
-            gameThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void stop() {
+
+        parallelTransition.stop();
     }
+
+
+
+
 }

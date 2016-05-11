@@ -5,6 +5,8 @@ import com.devfriendly.input.Keyboard;
 import com.devfriendly.input.button.AbstractButton;
 import com.devfriendly.input.button.Button;
 import com.devfriendly.system.Interactable;
+import javafx.scene.Group;
+import javafx.scene.canvas.GraphicsContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.awt.*;
@@ -14,7 +16,7 @@ import java.util.List;
 /**
  * Created by Shinn on 02.02.2016.
  */
-public abstract class AbstractScreenRenderer implements Interactable {
+public abstract class AbstractStageRenderer implements Interactable {
 
     @Autowired
     private ApplicationConfig applicationConfig;
@@ -22,7 +24,6 @@ public abstract class AbstractScreenRenderer implements Interactable {
     @Autowired
     private Keyboard keyboard;
 
-    private List<AbstractButton> buttons;
 
 
     public ApplicationConfig getApplicationConfig() {
@@ -36,17 +37,12 @@ public abstract class AbstractScreenRenderer implements Interactable {
     @Override
     public abstract void clear();
 
-    @Override
-    public abstract void render(Graphics g);
 
     @Override
     public abstract void update();
 
-    public List<AbstractButton> getButtons() {
-        return buttons;
-    }
+    @Override
+    public abstract void render(Group g);
 
-    public void setButtons(List<AbstractButton> buttons) {
-        this.buttons = buttons;
-    }
+
 }

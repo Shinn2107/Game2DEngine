@@ -1,26 +1,23 @@
 package com.devfriendly.assets.images;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import javafx.scene.image.Image;
 
 /**
  * Created by Shinn on 02.02.2016.
  */
 public class GameImage {
 
-    private BufferedImage bufferedImage;
+    private Image image;
 
     public GameImage(String imageUrl) {
-        try {
-            this.bufferedImage = ImageIO.read(getClass().getResourceAsStream(imageUrl));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        this.image = new Image(getClass().getResourceAsStream(imageUrl));
+
 
     }
 
-    public BufferedImage getBufferedImage() {
-        return bufferedImage;
+
+    public Image getImage() {
+        return image;
     }
 }

@@ -1,10 +1,14 @@
 package com.devfriendly.system.rendering.impl;
 
-import java.awt.*;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
+import com.devfriendly.game.impl.GameScreen;
 import com.devfriendly.system.exception.GameStateNotSetException;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.devfriendly.game.GameWindow;
@@ -21,37 +25,23 @@ public class GameRendererImpl implements GameRenderer {
     @Autowired
     GameStateManager gameStateManager;
 
-    BufferedImage bufferedImage;
-
     @Override
     public void render() {
-        BufferStrategy bs = gameWindow.getBufferStrategy();
-        if(bs == null){
-            gameWindow.createBufferStrategy(3);
-            return;
-        }
-        final Graphics g = bs.getDrawGraphics();
+        final Group rootGroup = new Group();
+        renderInternal(rootGroup);
+        gameWindow.getRootPane().getChildren().clear();
+        gameWindow.getRootPane().getChildren().add(rootGroup);
+    }
 
-        g.drawImage(getBufferedImage(), 0, 0, gameWindow.getWidth(), gameWindow.getHeight(), null);
+    private void renderInternal(Group rootGroup) {
         try {
             gameStateManager.getCurrentGameState().getInteractables()
-                    .forEach(item -> item.render(g));
+                    .forEach(item -> item.render(rootGroup));
             gameStateManager.getCurrentGameState().getInteractables()
                     .forEach(item -> item.clear());
         } catch (GameStateNotSetException e) {
             e.printStackTrace();
         }
-
-        g.dispose();
-        bs.show();
-
-    }
-
-    private BufferedImage getBufferedImage() {
-        if(bufferedImage==null){
-            bufferedImage = new BufferedImage(gameWindow.getWidth(),gameWindow.getHeight(),BufferedImage.TYPE_INT_RGB);
-        }
-        return bufferedImage;
     }
 
 }

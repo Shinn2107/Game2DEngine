@@ -25,13 +25,13 @@ public class GameFrameServiceImpl implements GameFrameService {
         final GameScreen gameFrame = new GameScreen(applicationConfig);
         final Dimension dimension = new Dimension(applicationConfig.getWidth()*applicationConfig.getScale()
                         ,applicationConfig.getHeight()*applicationConfig.getScale());
-        gameFrame.setPreferredSize(dimension);
+        /*gameFrame.setPreferredSize(dimension);
         gameFrame.setTitle(applicationConfig.getGameTitle());
         gameFrame.setResizable(applicationConfig.isResizeable());
         gameFrame.add(easyGameWindow);
         gameFrame.pack();
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gameFrame.setLocationRelativeTo(null);
+        gameFrame.setLocationRelativeTo(null);*/
         gameFrame.setVisible(false);
         return gameFrame;
     }

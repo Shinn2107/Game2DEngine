@@ -1,6 +1,7 @@
 package com.devfriendly.input;
 
-import java.awt.event.KeyListener;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 
 /**
  * Created by Patrick Fey on 17.01.2016.
@@ -17,5 +18,5 @@ public interface Keyboard {
 
     boolean enter();
 
-    KeyListener getListener();
+    EventHandler<KeyEvent> getListener();
 }

@@ -1,15 +1,15 @@
 package com.devfriendly.game.states.homescreen.renderer;
 
 import com.devfriendly.assets.images.GameImage;
-import com.devfriendly.system.rendering.renderables.AbstractScreenRenderer;
+import com.devfriendly.system.rendering.renderables.AbstractStartMenuStageRenderer;
+import javafx.scene.Group;
+import javafx.scene.image.ImageView;
 import org.apache.log4j.Logger;
-
-import java.awt.*;
 
 /**
  * Created by Patrick Fey on 02.02.2016.
  */
-public class SimpleHomeScreenRenderer extends AbstractScreenRenderer {
+public class SimpleHomeScreenRenderer extends AbstractStartMenuStageRenderer {
 
     private final GameImage homescreen;
 
@@ -19,15 +19,19 @@ public class SimpleHomeScreenRenderer extends AbstractScreenRenderer {
         this.homescreen = new GameImage("/images/homescreen.jpg");
     }
 
-    @Override
-    public void render(Graphics g) {
-        g.drawImage(homescreen.getBufferedImage(),0,0,getApplicationConfig().getWidth(),getApplicationConfig().getHeight(),null);
-    }
 
     @Override
     public void update() {
 
     }
+
+    @Override
+    public void render(Group g) {
+        final ImageView homescreenView = new ImageView(homescreen.getImage());
+        g.getChildren().add(homescreenView);
+    }
+
+
     @Override
     public void clear() {
 

@@ -23,6 +23,10 @@ public class AbstractButton {
         action.performAction();
     }
 
+    public String getRGB(){
+        return getR()+","+getG()+","+getB();
+    }
+
 
     public String getFont() {
         return font;

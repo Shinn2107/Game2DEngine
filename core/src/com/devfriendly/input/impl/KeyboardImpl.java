@@ -1,16 +1,17 @@
 package com.devfriendly.input.impl;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import com.devfriendly.input.Keyboard;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.scene.input.KeyEvent;
 import org.apache.log4j.Logger;
 
 
 /**
  * Created by Patrick Fey on 17.01.2016.
  */
-public class KeyboardImpl implements Keyboard, KeyListener {
+public class KeyboardImpl implements Keyboard, EventHandler<KeyEvent> {
 
     private static final Logger LOG = Logger.getLogger(KeyboardImpl.class);
 
@@ -67,44 +68,57 @@ public class KeyboardImpl implements Keyboard, KeyListener {
     }
 
     @Override
-    public KeyListener getListener() {
+    public EventHandler<KeyEvent> getListener() {
         return this;
     }
 
 
-    @Override
+
     public void keyTyped(KeyEvent e) {
         keyPressed(e);
     }
 
-    @Override
     public void keyPressed(KeyEvent e) {
-
-        switch (e.getKeyCode()){
-            case KeyEvent.VK_UP:
+        switch (e.getCode()){
+            case UP:
                 up=true;
                 break;
-            case KeyEvent.VK_DOWN:
+            case DOWN:
                 down = true;
                 break;
-            case KeyEvent.VK_LEFT:
+            case LEFT:
                 left = true;
                 break;
-            case KeyEvent.VK_RIGHT:
+            case RIGHT:
                 right = true;
                 break;
-            case KeyEvent.VK_ENTER:
+            case ENTER:
                 enter = true;
+                System.out.println("Enter");
                 break;
             default:break;
         }
+
     }
 
-    @Override
     public void keyReleased(KeyEvent e) {
         up = false;
         down = false;
         left = false;
         right = false;
     }
+
+    @Override
+    public void handle(KeyEvent e) {
+
+        if(e.getEventType()== KeyEvent.KEY_TYPED){
+            keyTyped(e);
+        }
+        if(e.getEventType()== KeyEvent.KEY_PRESSED){
+            keyPressed(e);
+        }
+
+
+    }
+
 }

@@ -1,5 +1,8 @@
 package com.devfriendly.system;
 
+import javafx.scene.Group;
+import javafx.scene.canvas.GraphicsContext;
+
 import java.awt.*;
 
 /**
@@ -9,7 +12,8 @@ public interface Interactable {
 
 
 
-    void render(Graphics g);
+
+    void render(Group g);
 
     void update();
 
