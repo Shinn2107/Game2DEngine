@@ -1,10 +1,14 @@
 package com.devfriendly.assets.tileset;
 
+import com.devfriendly.assets.images.ImageViewData;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Shinn on 11.05.2016.
@@ -24,7 +28,9 @@ public class TileSet {
     private int tilewidth;
     private String transparentColor;
 
-    private ImageView[] tileImages;
+    private List<ImageViewData> imageViewDataList;
+
+    private Image tileImage;
 
     /**
      * Will return all Tiles for the TileSet in an Array. The first time this method is called it will
@@ -32,31 +38,36 @@ public class TileSet {
      * @return
      */
     @JsonIgnore
-    public ImageView[] getTileImages(){
-        if(tileImages!=null) return tileImages;
+    public List<ImageViewData>  getTileImages(){
+        if(imageViewDataList!=null) return imageViewDataList;
         return loadTiles();
     }
 
-    private ImageView[] loadTiles() {
-        tileImages = new ImageView[tilecount]; // could be plus + 1 depending
+    @JsonIgnore
+    public Image getTileImage() {
+        if(tileImage==null){
+            tileImage = new Image(getClass().getResourceAsStream(getImage()));
+        }
+        return tileImage;
+    }
+
+    private List<ImageViewData> loadTiles() {
+        imageViewDataList = new ArrayList<>(tilecount);
         int rowsToRead = getImageheight()/getTileheight();
-        Image tileImage = new Image(getClass().getResourceAsStream(getImage()));
+        Image tileImage = getTileImage();
         double offsetPictureY = 0;
-        int imageIndex = -1;
         for (int i = 0; i <rowsToRead; i++) {
             double offsetPictureX = 0;
             for (int j = 0; j < columns; j++) {
-                imageIndex++;
-                ImageView imageView = new ImageView(tileImage);
-                imageView.setViewport( new Rectangle2D(offsetPictureX,offsetPictureY,getTilewidth(),getTileheight()));
-                tileImages[imageIndex] = imageView;
+                ImageViewData imageViewData = new ImageViewData(tileImage,new Rectangle2D(offsetPictureX,offsetPictureY,getTilewidth(),getTileheight()));
+                imageViewDataList.add(imageViewData);
                 offsetPictureX+=getTilewidth();
             }
             offsetPictureY+=getTileheight();
         }
 
 
-        return tileImages;
+        return imageViewDataList;
     }
 
     @JsonProperty("transparentcolor")
@@ -158,4 +169,6 @@ public class TileSet {
     public void setTilewidth(int tilewidth) {
         this.tilewidth = tilewidth;
     }
+
+
 }

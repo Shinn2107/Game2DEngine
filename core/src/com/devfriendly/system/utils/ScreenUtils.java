@@ -25,12 +25,6 @@ public class ScreenUtils {
     }
 
 
-    public static void addButton(Graphics g, final AbstractButton button,int x, int y){
-
-       /* g.setColor(new Color(button.getR(),button.getG(),button.getB()));
-        g.setFont(new Font(button.getFont(),button.getFontWeight(),button.getFontSize()));
-        g.drawString(button.getText(),x,y);*/
-    }
 
     public static void addButton(Group g, final AbstractButton button,int x, int y){
         Text text = new Text();
