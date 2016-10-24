@@ -8,6 +8,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.util.Duration;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +55,6 @@ public class DefaultGameLoop implements GameLoop {
         timeline.getKeyFrames().add(new KeyFrame(oneFrameAmt, event -> {
             calculateFrames();
             gameRenderer.render();
-
         }));
         return timeline;
     }

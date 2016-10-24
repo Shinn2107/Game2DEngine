@@ -39,11 +39,8 @@ public class TileSet {
 
     private ImageView[] loadTiles() {
         tileImages = new ImageView[tilecount]; // could be plus + 1 depending
-
         int rowsToRead = getImageheight()/getTileheight();
         Image tileImage = new Image(getClass().getResourceAsStream(getImage()));
-
-
         double offsetPictureY = 0;
         int imageIndex = -1;
         for (int i = 0; i <rowsToRead; i++) {

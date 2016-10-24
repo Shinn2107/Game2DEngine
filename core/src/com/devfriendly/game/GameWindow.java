@@ -1,28 +1,17 @@
 package com.devfriendly.game;
 
 import javax.annotation.Resource;
-import java.awt.*;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import com.devfriendly.game.impl.DefaultGameLoop;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.devfriendly.application.ApplicationConfig;
 import com.devfriendly.game.impl.GameScreen;
 import com.devfriendly.input.Keyboard;
-import com.devfriendly.system.rendering.GameRenderer;
-import com.devfriendly.system.updating.GameUpdateHandler;
-import com.sun.org.apache.xpath.internal.SourceTree;
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.devfriendly.application.ApplicationConfig;
-import com.devfriendly.game.exception.GameAlreadyStartedException;
 
 /**
  * Created by Patrick Fey on 16.01.2016.
@@ -44,13 +33,16 @@ public class GameWindow {
     private Pane rootPane;
 
     public void startGame(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
         rootPane = new StackPane();
-        //stackPane.getChildren().add(gameScreen);
         Scene scene = new Scene(rootPane, getApplicationConfig().getWidth(), getApplicationConfig().getHeight());
-
         scene.setOnKeyPressed(getKeyboard().getListener());
         scene.setOnKeyReleased(getKeyboard().getListener());
+        primaryStageSetup(scene);
+        gameLoop.start();
+    }
 
+    private void primaryStageSetup(Scene scene) {
         primaryStage.setTitle(getApplicationConfig().getGameTitle());
         primaryStage.setResizable(getApplicationConfig().isResizeable());
         primaryStage.setScene(scene);
@@ -58,7 +50,6 @@ public class GameWindow {
         primaryStage.show();
         primaryStage.requestFocus();
         setPrimaryStage(primaryStage);
-        gameLoop.start();
     }
 
     public Pane getRootPane() {
@@ -108,4 +99,5 @@ public class GameWindow {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+
 }

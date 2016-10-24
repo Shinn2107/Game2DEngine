@@ -1,6 +1,5 @@
 package com.devfriendly.system.rendering.renderables.impl;
 
-import com.devfriendly.assets.map.impl.TileMapLayer;
 import com.devfriendly.assets.map.impl.TiledJsonTileMap;
 import com.devfriendly.assets.tileset.TileSet;
 import com.devfriendly.system.rendering.renderables.AbstractMapStageRenderer;
@@ -33,10 +32,6 @@ public class TiledJsonMapStageRenderer extends AbstractMapStageRenderer {
 
     @Override
     public void update() {
-        if(tiledJsonTileMap!=null){
-            LOG.info("Height: "+tiledJsonTileMap.getHeight());
-            LOG.info("Width: "+tiledJsonTileMap.getWidth());
-        }
     }
 
     @Override
@@ -44,16 +39,14 @@ public class TiledJsonMapStageRenderer extends AbstractMapStageRenderer {
 
         for (TileSet tileSet : tiledJsonTileMap.getTileSetList()) {
             ImageView[] images = tileSet.getTileImages();
-            int laidOutOn = 0;
             for (int i = 0; i < images.length; i++) {
                 ImageView image = images[i];
-                image.setLayoutX(laidOutOn);
+                image.setLayoutX(image.getViewport().getMaxX());
+                image.setLayoutY(image.getViewport().getMaxY());
                 g.getChildren().add(image);
-                laidOutOn+=32;
             }
-
-
         }
+
         
 
 

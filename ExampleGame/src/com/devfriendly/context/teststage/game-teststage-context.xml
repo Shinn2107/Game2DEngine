@@ -19,8 +19,4 @@
         <constructor-arg value="/maps/teststage.json" name="mapUrl"/>
     </bean>
 
-
-
-
-
 </beans>
