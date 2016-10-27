@@ -5,6 +5,7 @@ import com.devfriendly.system.GameStateManager;
 import com.devfriendly.system.exception.GameStateNotFoundException;
 import com.devfriendly.system.mob.MobFactory;
 import com.devfriendly.system.mob.MobSystem;
+import com.devfriendly.system.mob.impl.DummyNPC;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
@@ -30,6 +31,7 @@ public class StartButtonAction implements ButtonAction {
 
         try {
             mobSystem.addMob(playerFactory.createPlayer());
+            //mobSystem.addMob(new DummyNPC());
             getGameStateManager().setGameState("TEST_SCREEN");
         } catch (GameStateNotFoundException e) {
             e.printStackTrace();
