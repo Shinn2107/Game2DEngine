@@ -18,12 +18,15 @@
     <alias name="myApplicationConfig" alias="applicationConfig"/>
     <bean id="myApplicationConfig" class="com.devfriendly.application.ApplicationConfig">
         <constructor-arg name="gameTitle" value="My Easy Game !"/>
-        <constructor-arg name="width" value="1000"/>
+        <constructor-arg name="width" value="800"/>
         <constructor-arg name="scale" value="1"/>
-        <constructor-arg name="resizeable" value="false"/>
+        <constructor-arg name="resizeable" value="true"/>
     </bean>
+
+
 
     <import resource="com/devfriendly/context/homescreen/game-homescreen-context.xml"/>
     <import resource="com/devfriendly/context/teststage/game-teststage-context.xml"/>
+    <import resource="com/devfriendly/context/mobs/game-mob-context.xml"/>
 
 </beans>

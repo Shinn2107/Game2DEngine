@@ -16,7 +16,8 @@
     </bean>
 
     <bean id="testSpriteRenderer" class="com.devfriendly.system.rendering.renderables.impl.TiledJsonMapStageRenderer">
-        <constructor-arg value="/maps/teststage.json" name="mapUrl"/>
+        <constructor-arg value="/maps/teststage_bigmap.json" name="mapUrl"/>
+
     </bean>
 
 </beans>

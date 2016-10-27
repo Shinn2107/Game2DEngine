@@ -2,15 +2,10 @@ package com.devfriendly.system.rendering.renderables;
 
 import com.devfriendly.application.ApplicationConfig;
 import com.devfriendly.input.Keyboard;
-import com.devfriendly.input.button.AbstractButton;
-import com.devfriendly.input.button.Button;
 import com.devfriendly.system.Interactable;
+import com.devfriendly.system.mob.MobSystem;
 import javafx.scene.Group;
-import javafx.scene.canvas.GraphicsContext;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.awt.*;
-import java.util.List;
 
 
 /**
@@ -24,14 +19,21 @@ public abstract class AbstractStageRenderer implements Interactable {
     @Autowired
     private Keyboard keyboard;
 
+    @Autowired
+    private MobSystem mobSystem;
 
 
-    public ApplicationConfig getApplicationConfig() {
+
+    protected ApplicationConfig getApplicationConfig() {
         return applicationConfig;
     }
 
-    public Keyboard getKeyboard() {
+    protected Keyboard getKeyboard() {
         return keyboard;
+    }
+
+    protected MobSystem getMobSystem() {
+        return mobSystem;
     }
 
     @Override

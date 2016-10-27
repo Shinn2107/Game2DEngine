@@ -2,6 +2,12 @@ package com.devfriendly.game;
 
 import javax.annotation.Resource;
 
+import javafx.geometry.Insets;
+import javafx.scene.Camera;
+import javafx.scene.ParallelCamera;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.devfriendly.application.ApplicationConfig;
@@ -9,8 +15,6 @@ import com.devfriendly.game.impl.GameScreen;
 import com.devfriendly.input.Keyboard;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -38,6 +42,12 @@ public class GameWindow {
         Scene scene = new Scene(rootPane, getApplicationConfig().getWidth(), getApplicationConfig().getHeight());
         scene.setOnKeyPressed(getKeyboard().getListener());
         scene.setOnKeyReleased(getKeyboard().getListener());
+
+        Camera camera = new PerspectiveCamera();
+        camera.setNearClip(0.1);
+        camera.setFarClip(2000.0);
+        scene.setCamera(camera);
+        scene.setFill(Color.BLACK);
         primaryStageSetup(scene);
         gameLoop.start();
     }
@@ -46,7 +56,6 @@ public class GameWindow {
         primaryStage.setTitle(getApplicationConfig().getGameTitle());
         primaryStage.setResizable(getApplicationConfig().isResizeable());
         primaryStage.setScene(scene);
-        primaryStage.centerOnScreen();
         primaryStage.show();
         primaryStage.requestFocus();
         setPrimaryStage(primaryStage);

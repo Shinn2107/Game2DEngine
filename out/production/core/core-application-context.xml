@@ -19,16 +19,27 @@
     </bean>
     <bean id="gameFrameService" class="com.devfriendly.game.impl.GameFrameServiceImpl" scope="singleton"/>
 
-    <bean id="gameWindow" class="com.devfriendly.game.impl.EasyGameWindow" scope="singleton"/>
-
     <bean id="gameScreen" class="com.devfriendly.game.impl.GameScreen">
         <constructor-arg name="applicationConfig" ref="applicationConfig"/>
+    </bean>
+
+    <bean id="gameWindow" class="com.devfriendly.game.GameWindow" scope="singleton">
+        <property name="gameScreen" ref="gameScreen"/>
     </bean>
 
     <bean id="gameUpdateHandler" class="com.devfriendly.system.updating.impl.GameUpdateHandlerImpl" scope="singleton"/>
 
     <bean id="keyboard" class="com.devfriendly.input.impl.KeyboardImpl" scope="singleton"/>
 
+    <bean id="mapRenderingService" class="com.devfriendly.system.map.impl.MapLoadingServiceImpl"/>
 
+    <bean id="mapContext" class="com.devfriendly.system.map.impl.MapContextImpl"/>
+
+    <bean id="tileLoadingService" class="com.devfriendly.system.map.impl.TileLoadingServiceImpl"/>
+
+    <bean id="mobSystem" class="com.devfriendly.system.mob.impl.MobSystemImpl"/>
+
+
+    <bean id="camera" class="com.devfriendly.system.camera.impl.GameCameraImpl"/>
 
 </beans>

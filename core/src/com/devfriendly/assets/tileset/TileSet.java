@@ -1,11 +1,9 @@
 package com.devfriendly.assets.tileset;
 
-import com.devfriendly.assets.images.ImageViewData;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,7 @@ public class TileSet {
     private int tilewidth;
     private String transparentColor;
 
-    private List<ImageViewData> imageViewDataList;
+    private List<TileData> tileDataList;
 
     private Image tileImage;
 
@@ -38,8 +36,8 @@ public class TileSet {
      * @return
      */
     @JsonIgnore
-    public List<ImageViewData>  getTileImages(){
-        if(imageViewDataList!=null) return imageViewDataList;
+    public List<TileData>  getTileImages(){
+        if(tileDataList !=null) return tileDataList;
         return loadTiles();
     }
 
@@ -51,23 +49,23 @@ public class TileSet {
         return tileImage;
     }
 
-    private List<ImageViewData> loadTiles() {
-        imageViewDataList = new ArrayList<>(tilecount);
+    private List<TileData> loadTiles() {
+        tileDataList = new ArrayList<>(tilecount);
         int rowsToRead = getImageheight()/getTileheight();
         Image tileImage = getTileImage();
         double offsetPictureY = 0;
         for (int i = 0; i <rowsToRead; i++) {
             double offsetPictureX = 0;
             for (int j = 0; j < columns; j++) {
-                ImageViewData imageViewData = new ImageViewData(tileImage,new Rectangle2D(offsetPictureX,offsetPictureY,getTilewidth(),getTileheight()));
-                imageViewDataList.add(imageViewData);
+                TileData imageViewData = new TileData(tileImage,new Rectangle2D(offsetPictureX,offsetPictureY,getTilewidth(),getTileheight()));
+                tileDataList.add(imageViewData);
                 offsetPictureX+=getTilewidth();
             }
             offsetPictureY+=getTileheight();
         }
 
 
-        return imageViewDataList;
+        return tileDataList;
     }
 
     @JsonProperty("transparentcolor")

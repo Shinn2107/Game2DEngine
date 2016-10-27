@@ -1,18 +1,22 @@
 package com.devfriendly.system.rendering.renderables.impl;
 
-import com.devfriendly.assets.map.impl.TileMapLayer;
 import com.devfriendly.assets.map.impl.TiledJsonTileMap;
-import com.devfriendly.assets.tileset.TileSet;
+import com.devfriendly.assets.tileset.TileData;
+import com.devfriendly.system.map.MapLoadingService;
+import com.devfriendly.system.map.data.MapLayerData;
+import com.devfriendly.system.map.impl.MapLoadingServiceImpl;
+import com.devfriendly.system.mob.Mob;
 import com.devfriendly.system.rendering.renderables.AbstractMapStageRenderer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Shinn on 11.05.2016.
@@ -23,19 +27,28 @@ public class TiledJsonMapStageRenderer extends AbstractMapStageRenderer {
     private TiledJsonTileMap tiledJsonTileMap;
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    private List<TileData> tileDataList;
+    private List<List<ImageView>> mapDataList;
+
+
+    @Autowired
+    private MapLoadingService mapRenderingService;
+
+
     public TiledJsonMapStageRenderer(String mapUrl) throws IOException {
         super(mapUrl);
+        this.mapDataList = new ArrayList<>();
         this.tiledJsonTileMap = objectMapper.readValue(getClass().getResourceAsStream(mapUrl),TiledJsonTileMap.class);
     }
 
 
     @Override
     public void clear() {
-
     }
 
     @Override
     public void update() {
+        getMobSystem().getMobs().stream().forEach(mob -> mob.update());
     }
 
     @Override
@@ -43,37 +56,36 @@ public class TiledJsonMapStageRenderer extends AbstractMapStageRenderer {
 
 
 
-        for (TileMapLayer tileMapLayer : tiledJsonTileMap.getTileMapLayers()) {
-            if(tileMapLayer.isVisible()) {
-
-                for (int y = 0; y < tileMapLayer.getHeight(); y++) {
-                    for (int x = 0; x < tileMapLayer.getWidth(); x++) {
-                        int rowToTake = y == 1 ? 0 + x  : y*tileMapLayer.getWidth()+x;
-                        int imageToPlace = tileMapLayer.getData()[rowToTake]-1;
-
-                        if(imageToPlace>=0){
-
-                            int widthX = x * tiledJsonTileMap.getTileWidth();
-                            int widthY = y *tiledJsonTileMap.getTileHeight();
-                            for (TileSet tileSet : tiledJsonTileMap.getTileSetList()) {
-                                ImageView imageView = tileSet.getTileImages().get(imageToPlace).buildImageView();
-
-                                imageView.setLayoutX(widthX);
-                                imageView.setLayoutY(widthY);
-
-                                g.getChildren().add(imageView);
-                            }
-                        }
-                    }
+        try {
+            MapLayerData loadedMapData = mapRenderingService.loadMap(tiledJsonTileMap);
+            if(loadedMapData!=null){
+                for (String layerId : loadedMapData.getLayeredMapData().keySet()) {
+                    renderTileInternal(g,loadedMapData, layerId);
                 }
-
-
             }
-
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
 
 
+        //iter through layers and render Mob on Player Layer
 
+    }
+
+    private void renderTileInternal(Group g, MapLayerData loadedMapData, String tileMapLayer) {
+        if (tileMapLayer.equalsIgnoreCase(MapLoadingServiceImpl.PLAYER_LAYER_NAME)){
+            renderMobs(g);
+        }else{
+            g.getChildren().addAll(loadedMapData.getLayeredMapData().get(tileMapLayer));
+        }
+
+
+    }
+
+    private void renderMobs(Group g) {
+        for (Mob mob : getMobSystem().getMobs()) {
+            mob.render(g);
+        }
     }
 
 }
