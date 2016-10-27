@@ -31,7 +31,7 @@ public class StartButtonAction implements ButtonAction {
 
         try {
             mobSystem.addMob(playerFactory.createPlayer());
-            //mobSystem.addMob(new DummyNPC());
+            mobSystem.addMob(new DummyNPC());
             getGameStateManager().setGameState("TEST_SCREEN");
         } catch (GameStateNotFoundException e) {
             e.printStackTrace();
